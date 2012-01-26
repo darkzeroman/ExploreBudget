@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<title>USA Budget Pie Chart Visualization</title>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.7.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="js/control.js"></script>
+
+<script type="text/javascript"
+	src="fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<link rel="stylesheet" href="fancybox/jquery.fancybox-1.3.4.css"
+	type="text/css" media="screen" />
+<link rel="stylesheet" href="css/style.css" type="text/css"
+	media="screen" />
+<script type="text/javascript">
+$(document).ready(function () {
+
+    $(".fancybox").fancybox({
+        transitionIn: 'elastic',
+        transitionOut: 'elastic',
+        centerOnScroll: true,
+        hideOnContentClick: true,
+    });
+
+    //$( "#box" ).draggable();
+    $('.myButton').click(function () {
+
+        if ($(this).hasClass("bySubfunc")) {
+            $('#box').fadeOut("fast", function () {
+                var div = $("<img src=\"img/bySubfunc.svg\" id=\"box\">").hide();
+                $(this).replaceWith(div);
+                $('#box').fadeIn("fast");
+                rotateMovable();
+            });
+        }
+        if ($(this).hasClass("byFunc")) {
+            $('#box').fadeOut("fast", function () {
+                var div = $("<img src=\"img/byFunc.svg\" id=\"box\">").hide();
+                $(this).replaceWith(div);
+                $('#box').fadeIn("fast");
+                rotateMovable();
+            });
+        }
+        if ($(this).hasClass("zoomIn")) {
+            $('#box').animate({
+                left: "-1175px",
+                top: "-850px",
+                width: "2400px"
+            }, 1000)
+        };
+
+        if ($(this).hasClass("zoomOut")) {
+            $('#box').animate({
+                left: "0px",
+                top: "0px",
+                width: '600px',
+            }, 1000)
+            //alert($('#box').css("left"));
+        };
+
+    });
+});
+	</script>
+
+</head>
+
+<body>
+	<a href="#" class="myButton byFunc" style="top: 0; left: 0">By
+		Function</a>
+	<a href="#" class="myButton bySubfunc" style="top: 0; left: 0">By
+		Subfunction</a>
+	<a href="#" class="myButton zoomIn" style="top: 0; left: 0">Zoom In</a>
+	<a href="#" class="myButton zoomOut" style="top: 0; left: 0">Zoom
+		Out</a>
+	<a id="inline" class="iframe fancybox myButton" href="ReadMe.html">Info/Read Me</a>
+	<div style="clear: both;"></div>
+	<div id="container">
+		<img src="img/byFunc.svg" id="box">
+	</div>
+
+</body>
+</html>

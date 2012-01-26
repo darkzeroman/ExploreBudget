@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>US Budget Pie Chart, 2010</title>
+<script type="text/javascript" src="js/protovis-r3.2.js"></script>
+<script type="text/javascript" src="js/flare2.js"></script>
+<style type="text/css">
+#fig {
+	width: 1800px;
+	margin-top: 5px;
+	height: 1800px;
+	text-align: right;
+}
+</style>
+</head>
+<body>
+	<div id="center">
+		<div id="fig">
+			<script type="text/javascript+protovis">
+
+var vis = new pv.Panel()
+    .width(1800)
+    .height(1800)
+    .bottom(0);
+
+var partition = vis.add(pv.Layout.Partition.Fill)
+    .nodes(pv.dom(budgetdatav2).root("US Budget").nodes())
+    .size(function(d) d.nodeValue)
+    .order("ascending")
+    .orient("radial")
+	;
+
+partition.node.add(pv.Wedge)
+    .fillStyle(pv.Colors.category19().by(function(d) d.parentNode && d.parentNode.nodeName))
+    .strokeStyle("#fff")
+    .lineWidth(1)
+	;
+
+partition.label.add(pv.Label)
+    .visible(function(d) d.angle * d.outerRadius >= 10).textStyle("black").font("8pt bold sans-serif");
+vis.render();
+
+/* Update the layout's size method and re-render. */
+function update(method) {
+  switch (method) {
+    case "byte": partition.size(function(d) d.nodeValue); break;
+    case "file": partition.size(function(d) d.firstChild ? 0 : 1); break;
+  }
+  vis.render();
+
+}
+
+    </script>
+
+		</div>
+	</div>
+</body>
+</html>
